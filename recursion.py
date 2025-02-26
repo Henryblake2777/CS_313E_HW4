@@ -175,3 +175,14 @@ def split_53(nums):
     pre: len(nums) >= 0, nums will only contain ints
     post: return True if nums can be split, False otherwise
     """
+    def split_array_helper(nums, i):
+        if i > len(nums) - 1 and nums != []:
+            return False
+        if sum(nums[:i]) == sum(nums[i:]) or split_array_helper(nums, i + 1):
+            return True
+        if not split_array_helper(nums, i + 1):
+            return False
+        split_array_helper(nums, i + 1)
+
+    i = 1
+    return split_array_helper(nums, i)
