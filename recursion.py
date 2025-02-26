@@ -15,8 +15,6 @@ Students. Academic penalties up to and including an F in the course are likely.
 UT EID 1: Hrb987
 """
 
-
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to the
@@ -34,7 +32,6 @@ def group_sum(start, nums, target):
     return group_sum(start + 1, nums, target)
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum_6(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to the
@@ -56,8 +53,6 @@ def group_sum_6(start, nums, target):
 
 
 
-
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_no_adj(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to
@@ -76,7 +71,6 @@ def group_no_adj(start, nums, target):
     return group_no_adj(start + 1, nums, target)
 
 
-# TODO: Modify this function. You may ete this comment when you are done.
 def group_sum_5(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to
@@ -97,7 +91,6 @@ def group_sum_5(start, nums, target):
     return group_sum_5(start + 1, nums, target)
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum_clump(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to
@@ -109,9 +102,20 @@ def group_sum_clump(start, nums, target):
     pre: start >= 0, len(nums) >= 0, target >= 0, nums will only contain ints
     post: return True if nums has a group of ints that sum to target, False otherwise
     """
+    if start >= len(nums):
+        return target == 0
+    total = nums[start]
+    count = 1
+    while start + count < len(nums) and nums[start] == nums[start + count]:
+        total += nums[start + count]
+        count += 1
+    target -= total
+    if group_sum_clump(start + count, nums, target):
+        return True
+    target += total
+    return group_sum_clump(start + count, nums, target)
 
 
-# TODO: Modify this function
 def split_array(nums):
     """
     Given a list of ints, determine if the numbers can be split evenly into two groups
@@ -121,9 +125,19 @@ def split_array(nums):
     pre: len(nums) >= 0, nums will only contain ints
     post: return True if nums can be split, False otherwise
     """
+    def split_array_helper(nums, i):
+        if i > len(nums) - 1 and nums != []:
+            return False
+        if sum(nums[:i]) == sum(nums[i:]) or split_array_helper(nums, i + 1):
+            return True
+        if not split_array_helper(nums, i + 1):
+            return False
+        split_array_helper(nums, i + 1)
+
+    i = 1
+    return split_array_helper(nums, i)
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def split_odd_10(nums):
     """
     Given a list of ints, determine if the numbers can be split evenly into two groups
@@ -135,7 +149,6 @@ def split_odd_10(nums):
     """
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def split_53(nums):
     """
     Given a list of ints, determine if the numbers can be split evenly into two groups
